@@ -18,7 +18,7 @@ var casper = require('casper').create({
     return this;
 };
 casper.setProxy("socks://127.0.0.1:1080/") */
-phantom.setProxy("socks://127.0.0.1:1080/")
+phantom.setProxy("http://127.0.0.1:9999/")
 casper.start('https://www.baidu.com/', function() {
     this.echo("title: "+this.getTitle());
     this.capture('chinaexpats.png')
