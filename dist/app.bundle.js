@@ -20,7 +20,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "5340d065acb227f605ea"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "e38a0fedd4d87f4b93b8"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -1363,7 +1363,8 @@ var _child_process = __webpack_require__(77);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var urlList = ["http://ptp.chinaexpats.cn/index.php?s=tuiguang&id=td+chIkq+NkKvQ", "http://ptp.chinaexpats.cn/index.php?s=tuiguang&id=5d3Khdp/pNMKvg"];
+var count = 0;
+var urlList = ["http://ptp.chinaexpats.cn/index.php?s=tuiguang&id=5d3Khdp/pNMKvg"];
 
 var timeOut = function timeOut(time) {
     return new _promise2.default(function (resolve, reject) {
@@ -1381,7 +1382,7 @@ var getList = function () {
                     case 0:
                         _context.prev = 0;
                         _context.next = 3;
-                        return (0, _config2.default)('select?name=free_ipproxy&order=save_time&sort=desc&count=100');
+                        return (0, _config2.default)('select?name=free_ipproxy&order=save_time&sort=desc&count=1000');
 
                     case 3:
                         list = _context.sent;
@@ -1421,7 +1422,7 @@ var surfing = function () {
 
                     case 5:
                         if (!(i < len)) {
-                            _context2.next = 19;
+                            _context2.next = 20;
                             break;
                         }
 
@@ -1434,41 +1435,42 @@ var surfing = function () {
 
                     case 9:
                         if (!(j < len2)) {
-                            _context2.next = 16;
+                            _context2.next = 17;
                             break;
                         }
 
+                        console.log(count++);
                         tempUrl = encodeURIComponent(urlList[j]);
-                        _context2.next = 13;
+                        _context2.next = 14;
                         return execPhantom(proxy, tempUrl);
 
-                    case 13:
+                    case 14:
                         j++;
                         _context2.next = 9;
                         break;
 
-                    case 16:
+                    case 17:
                         i++;
                         _context2.next = 5;
                         break;
 
-                    case 19:
-                        _context2.next = 23;
+                    case 20:
+                        _context2.next = 24;
                         break;
 
-                    case 21:
-                        _context2.prev = 21;
+                    case 22:
+                        _context2.prev = 22;
                         _context2.t0 = _context2['catch'](0);
 
-                    case 23:
+                    case 24:
                         surfing();
 
-                    case 24:
+                    case 25:
                     case 'end':
                         return _context2.stop();
                 }
             }
-        }, _callee2, undefined, [[0, 21]]);
+        }, _callee2, undefined, [[0, 22]]);
     }));
 
     return function surfing() {
@@ -1508,12 +1510,14 @@ var execPhantom = function () {
         while (1) {
             switch (_context4.prev = _context4.next) {
                 case 0:
-                    // await timeOut(30)
+                    _context4.next = 2;
+                    return timeOut(30);
 
+                case 2:
                     console.log("start");
                     surfing();
 
-                case 2:
+                case 4:
                 case 'end':
                     return _context4.stop();
             }

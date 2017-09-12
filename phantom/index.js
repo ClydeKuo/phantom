@@ -1,8 +1,9 @@
 import $api from '../config.js'
 import {exec} from 'child_process'
 
+var count=0
 let urlList=[
-    "http://ptp.chinaexpats.cn/index.php?s=tuiguang&id=td+chIkq+NkKvQ",
+    
     "http://ptp.chinaexpats.cn/index.php?s=tuiguang&id=5d3Khdp/pNMKvg"
 ]
 
@@ -15,7 +16,7 @@ var timeOut = time => {
 }
 var  getList=async ()=>{
     try{
-       let list=await $api('select?name=free_ipproxy&order=save_time&sort=desc&count=100')
+       let list=await $api('select?name=free_ipproxy&order=save_time&sort=desc&count=1000')
         return list
     }catch(e){}
 }
@@ -29,6 +30,7 @@ var surfing=async ()=>{
             let proxy=`${protocol}://${list[i].ip}:${list[i].port}/`
             // console.log(proxy)
             for(let j=0,len2=urlList.length;j<len2;j++){
+                console.log(count++)
                 let tempUrl=encodeURIComponent(urlList[j])
                 await execPhantom(proxy,tempUrl)
             }
@@ -48,8 +50,7 @@ var execPhantom=async (proxy,tempUrl)=>{
     })
 }
 (async()=>{
-    // await timeOut(30)
-
+    await timeOut(30)
     console.log("start")
     surfing()
 })()
