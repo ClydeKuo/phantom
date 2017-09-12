@@ -20,7 +20,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "c3286c5394ccc89b83b7"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "facb28565dd25ee44f36"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -1493,15 +1493,19 @@ if (false) {
 }
 
 var $api = function $api(path) {
-    return new _promise2.default(function (resolve, reject) {
-        (0, _request2.default)(url + path, function (error, response, body) {
-            if (error) {
-                console.log('error:', error);
-                reject(error);
-            }
-            resolve(JSON.parse(body));
+    try {
+        return new _promise2.default(function (resolve, reject) {
+            (0, _request2.default)(url + path, function (error, response, body) {
+                if (error) {
+                    console.log('error:', error);
+                    reject(error);
+                }
+                resolve(JSON.parse(body));
+            });
         });
-    });
+    } catch (e) {
+        reject(e);
+    }
 };
 
 module.exports = $api;

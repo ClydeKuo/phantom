@@ -6,15 +6,17 @@ if (ENV == 'pd') {
 }
 
 let $api=(path)=>{
-    return new Promise((resolve,reject)=>{
-        request(url+path, function (error, response, body) {
-            if(error){
-                console.log('error:', error)
-                reject(error)
-            }
-            resolve(JSON.parse(body))
-          });
-    })
+    try{
+        return new Promise((resolve,reject)=>{
+            request(url+path, function (error, response, body) {
+                if(error){
+                    console.log('error:', error)
+                    reject(error)
+                }
+                resolve(JSON.parse(body))
+              });
+        })
+    }catch(e){reject(e)}
 }
 
 module.exports=$api
