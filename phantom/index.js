@@ -51,7 +51,9 @@ var execPhantom=async (proxy,tempUrl)=>{
     })
 }
 (async()=>{
-    // await timeOut(30)
+    if (ENV == 'pd'){
+        await timeOut(30)
+    }
     console.log("start")
     surfing()
 })()

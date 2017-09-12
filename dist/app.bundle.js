@@ -20,7 +20,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "8252a329993160cb52d1"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "838881bcba9661b07264"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -1516,11 +1516,19 @@ var execPhantom = function () {
         while (1) {
             switch (_context4.prev = _context4.next) {
                 case 0:
-                    // await timeOut(30)
+                    if (true) {
+                        _context4.next = 3;
+                        break;
+                    }
+
+                    _context4.next = 3;
+                    return timeOut(30);
+
+                case 3:
                     console.log("start");
                     surfing();
 
-                case 2:
+                case 5:
                 case 'end':
                     return _context4.stop();
             }
