@@ -32,6 +32,11 @@ var surfing=async ()=>{
     }
     surfing()
 }
-surfing()
+(async()=>{
+    await timeOut(30)
+    console.log("start")
+    surfing()
+})()
+
 
 
