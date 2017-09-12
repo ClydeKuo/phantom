@@ -21,27 +21,35 @@ var  getList=async ()=>{
 }
 
 var surfing=async ()=>{
-    let list =await getList()
-    for(let i=0,len=list.length;i<len;i++){
-        // console.log(list[i])
-        let protocol=list[i].https==='yes'?'https':'http'
-        let proxy=`${protocol}://${list[i].ip}:${list[i].port}/`
-        console.log(proxy)
-        for(let j=0,len2=urlList.length;j<len2;j++){
-            await timeOut(5)
-            let tempUrl=encodeURIComponent(urlList[j])
-            exec('phantomjs ../phantom/phantom.js '+proxy+" "+tempUrl,function(error,stdout,stderr){
-                console.log(stdout)
-                if(error) {
-                    console.info('stderr : '+stderr);
-                }
-            });
+    try{
+        let list =await getList()
+        for(let i=0,len=list.length;i<len;i++){
+            // console.log(list[i])
+            let protocol=list[i].https==='yes'?'https':'http'
+            let proxy=`${protocol}://${list[i].ip}:${list[i].port}/`
+            // console.log(proxy)
+            for(let j=0,len2=urlList.length;j<len2;j++){
+                let tempUrl=encodeURIComponent(urlList[j])
+                await execPhantom(proxy,tempUrl)
+            }
         }
-    }
+    }catch(e){}
     surfing()
 }
+var execPhantom=async (proxy,tempUrl)=>{
+    return new Promise((resolve,reject)=>{
+        exec('phantomjs ../phantom/phantom.js '+proxy+" "+tempUrl,function(error,stdout,stderr){
+            console.log(stdout)
+            resolve()
+            if(error) {
+                console.info('stderr : '+stderr);
+            }
+        });
+    })
+}
 (async()=>{
-    await timeOut(30)
+    // await timeOut(30)
+
     console.log("start")
     surfing()
 })()

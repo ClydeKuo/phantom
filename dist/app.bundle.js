@@ -20,7 +20,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e10226a1c4301339b807"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "5340d065acb227f605ea"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -1411,88 +1411,114 @@ var surfing = function () {
             while (1) {
                 switch (_context2.prev = _context2.next) {
                     case 0:
-                        _context2.next = 2;
+                        _context2.prev = 0;
+                        _context2.next = 3;
                         return getList();
 
-                    case 2:
+                    case 3:
                         list = _context2.sent;
                         i = 0, len = list.length;
 
-                    case 4:
+                    case 5:
                         if (!(i < len)) {
-                            _context2.next = 20;
+                            _context2.next = 19;
                             break;
                         }
 
                         // console.log(list[i])
                         protocol = list[i].https === 'yes' ? 'https' : 'http';
                         proxy = protocol + '://' + list[i].ip + ':' + list[i].port + '/';
+                        // console.log(proxy)
 
-                        console.log(proxy);
                         j = 0, len2 = urlList.length;
 
                     case 9:
                         if (!(j < len2)) {
-                            _context2.next = 17;
+                            _context2.next = 16;
                             break;
                         }
 
-                        _context2.next = 12;
-                        return timeOut(5);
-
-                    case 12:
                         tempUrl = encodeURIComponent(urlList[j]);
+                        _context2.next = 13;
+                        return execPhantom(proxy, tempUrl);
 
-                        (0, _child_process.exec)('phantomjs ../phantom/phantom.js ' + proxy + " " + tempUrl, function (error, stdout, stderr) {
-                            console.log(stdout);
-                            if (error) {
-                                console.info('stderr : ' + stderr);
-                            }
-                        });
-
-                    case 14:
+                    case 13:
                         j++;
                         _context2.next = 9;
                         break;
 
-                    case 17:
+                    case 16:
                         i++;
-                        _context2.next = 4;
+                        _context2.next = 5;
                         break;
 
-                    case 20:
-                        surfing();
+                    case 19:
+                        _context2.next = 23;
+                        break;
 
                     case 21:
+                        _context2.prev = 21;
+                        _context2.t0 = _context2['catch'](0);
+
+                    case 23:
+                        surfing();
+
+                    case 24:
                     case 'end':
                         return _context2.stop();
                 }
             }
-        }, _callee2, undefined);
+        }, _callee2, undefined, [[0, 21]]);
     }));
 
     return function surfing() {
         return _ref2.apply(this, arguments);
     };
 }();
-(0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3() {
-    return _regenerator2.default.wrap(function _callee3$(_context3) {
-        while (1) {
-            switch (_context3.prev = _context3.next) {
-                case 0:
-                    _context3.next = 2;
-                    return timeOut(30);
+var execPhantom = function () {
+    var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(proxy, tempUrl) {
+        return _regenerator2.default.wrap(function _callee3$(_context3) {
+            while (1) {
+                switch (_context3.prev = _context3.next) {
+                    case 0:
+                        return _context3.abrupt('return', new _promise2.default(function (resolve, reject) {
+                            (0, _child_process.exec)('phantomjs ../phantom/phantom.js ' + proxy + " " + tempUrl, function (error, stdout, stderr) {
+                                console.log(stdout);
+                                resolve();
+                                if (error) {
+                                    console.info('stderr : ' + stderr);
+                                }
+                            });
+                        }));
 
-                case 2:
+                    case 1:
+                    case 'end':
+                        return _context3.stop();
+                }
+            }
+        }, _callee3, undefined);
+    }));
+
+    return function execPhantom(_x, _x2) {
+        return _ref3.apply(this, arguments);
+    };
+}();
+(0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4() {
+    return _regenerator2.default.wrap(function _callee4$(_context4) {
+        while (1) {
+            switch (_context4.prev = _context4.next) {
+                case 0:
+                    // await timeOut(30)
+
                     console.log("start");
                     surfing();
 
-                case 4:
+                case 2:
                 case 'end':
-                    return _context3.stop();
+                    return _context4.stop();
             }
         }
-    }, _callee3, undefined);
+    }, _callee4, undefined);
 }))();
 
 /***/ }),
