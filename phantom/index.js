@@ -1,6 +1,11 @@
 import $api from '../config.js'
 import {exec} from 'child_process'
 
+let urlList=[
+    "http://ptp.chinaexpats.cn/index.php?s=tuiguang&id=td+chIkq+NkKvQ",
+    "http://ptp.chinaexpats.cn/index.php?s=tuiguang&id=5d3Khdp/pNMKvg"
+]
+
 var timeOut = time => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -22,13 +27,16 @@ var surfing=async ()=>{
         let protocol=list[i].https==='yes'?'https':'http'
         let proxy=`${protocol}://${list[i].ip}:${list[i].port}/`
         console.log(proxy)
-        await timeOut(5)
-        exec('phantomjs ../phantom/phantom.js '+proxy,function(error,stdout,stderr){
-            console.log(stdout)
-            if(error) {
-                console.info('stderr : '+stderr);
-            }
-        });
+        for(let j=0,len2=urlList.length;j<len2;j++){
+            await timeOut(5)
+            let tempUrl=encodeURIComponent(urlList[j])
+            exec('phantomjs ../phantom/phantom.js '+proxy+" "+tempUrl,function(error,stdout,stderr){
+                console.log(stdout)
+                if(error) {
+                    console.info('stderr : '+stderr);
+                }
+            });
+        }
     }
     surfing()
 }
@@ -37,6 +45,5 @@ var surfing=async ()=>{
     console.log("start")
     surfing()
 })()
-
 
 

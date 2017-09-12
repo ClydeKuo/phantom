@@ -20,7 +20,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "fbb3975a2af368cb1998"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "e10226a1c4301339b807"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -1363,6 +1363,8 @@ var _child_process = __webpack_require__(77);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var urlList = ["http://ptp.chinaexpats.cn/index.php?s=tuiguang&id=td+chIkq+NkKvQ", "http://ptp.chinaexpats.cn/index.php?s=tuiguang&id=5d3Khdp/pNMKvg"];
+
 var timeOut = function timeOut(time) {
     return new _promise2.default(function (resolve, reject) {
         setTimeout(function () {
@@ -1404,7 +1406,7 @@ var getList = function () {
 
 var surfing = function () {
     var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
-        var list, i, len, protocol, proxy;
+        var list, i, len, protocol, proxy, j, len2, tempUrl;
         return _regenerator2.default.wrap(function _callee2$(_context2) {
             while (1) {
                 switch (_context2.prev = _context2.next) {
@@ -1418,7 +1420,7 @@ var surfing = function () {
 
                     case 4:
                         if (!(i < len)) {
-                            _context2.next = 14;
+                            _context2.next = 20;
                             break;
                         }
 
@@ -1427,26 +1429,41 @@ var surfing = function () {
                         proxy = protocol + '://' + list[i].ip + ':' + list[i].port + '/';
 
                         console.log(proxy);
-                        _context2.next = 10;
+                        j = 0, len2 = urlList.length;
+
+                    case 9:
+                        if (!(j < len2)) {
+                            _context2.next = 17;
+                            break;
+                        }
+
+                        _context2.next = 12;
                         return timeOut(5);
 
-                    case 10:
-                        (0, _child_process.exec)('phantomjs ../phantom/phantom.js ' + proxy, function (error, stdout, stderr) {
+                    case 12:
+                        tempUrl = encodeURIComponent(urlList[j]);
+
+                        (0, _child_process.exec)('phantomjs ../phantom/phantom.js ' + proxy + " " + tempUrl, function (error, stdout, stderr) {
                             console.log(stdout);
                             if (error) {
                                 console.info('stderr : ' + stderr);
                             }
                         });
 
-                    case 11:
+                    case 14:
+                        j++;
+                        _context2.next = 9;
+                        break;
+
+                    case 17:
                         i++;
                         _context2.next = 4;
                         break;
 
-                    case 14:
+                    case 20:
                         surfing();
 
-                    case 15:
+                    case 21:
                     case 'end':
                         return _context2.stop();
                 }
