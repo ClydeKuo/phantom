@@ -47,7 +47,7 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin({ //全局常量
             ENV: process.platform == 'linux'?'"pd"':'"dev"',
-            // db:db
+            PATH:"__dirname"
         }),
 
     ]

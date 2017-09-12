@@ -20,7 +20,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "520dac7dac0aec457e9a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "8252a329993160cb52d1"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -1341,7 +1341,7 @@ module.exports = function (key) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(__dirname) {
+
 
 var _regenerator = __webpack_require__(40);
 
@@ -1361,13 +1361,12 @@ var _config2 = _interopRequireDefault(_config);
 
 var _child_process = __webpack_require__(77);
 
-var _path = __webpack_require__(79);
+var _path = __webpack_require__(78);
 
 var _path2 = _interopRequireDefault(_path);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-console.log(__dirname);
 var count = 0;
 var urlList = ["http://ptp.chinaexpats.cn/index.php?s=tuiguang&id=5d3Khdp/pNMKvg"];
 
@@ -1489,7 +1488,7 @@ var execPhantom = function () {
                 switch (_context3.prev = _context3.next) {
                     case 0:
                         return _context3.abrupt('return', new _promise2.default(function (resolve, reject) {
-                            var programPath = _path2.default.join(__dirname, 'phantom', 'phantom.js');
+                            var programPath = _path2.default.join(__dirname, '../phantom', 'phantom.js');
                             // console.log(programPath)
                             (0, _child_process.exec)('phantomjs ' + programPath + " " + proxy + " " + tempUrl, function (error, stdout, stderr) {
                                 console.log(stdout);
@@ -1528,7 +1527,6 @@ var execPhantom = function () {
         }
     }, _callee4, undefined);
 }))();
-/* WEBPACK VAR INJECTION */}.call(exports, "..\\phantom"))
 
 /***/ }),
 /* 37 */
@@ -1550,7 +1548,7 @@ var _promise = __webpack_require__(14);
 
 var _promise2 = _interopRequireDefault(_promise);
 
-var _request = __webpack_require__(78);
+var _request = __webpack_require__(79);
 
 var _request2 = _interopRequireDefault(_request);
 
@@ -3378,13 +3376,13 @@ module.exports = require("child_process");
 /* 78 */
 /***/ (function(module, exports) {
 
-module.exports = require("request");
+module.exports = require("path");
 
 /***/ }),
 /* 79 */
 /***/ (function(module, exports) {
 
-module.exports = require("path");
+module.exports = require("request");
 
 /***/ })
 /******/ ]);

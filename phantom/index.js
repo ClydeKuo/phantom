@@ -1,7 +1,6 @@
 import $api from '../config.js'
 import {exec} from 'child_process'
 import path from 'path'
-console.log(__dirname)
 var count=0
 let urlList=[
     "http://ptp.chinaexpats.cn/index.php?s=tuiguang&id=5d3Khdp/pNMKvg"
@@ -40,7 +39,7 @@ var surfing=async ()=>{
 }
 var execPhantom=async (proxy,tempUrl)=>{
     return new Promise((resolve,reject)=>{
-        let programPath=path.join(__dirname,'phantom','phantom.js')
+        let programPath=path.join(PATH,'../phantom','phantom.js')
         // console.log(programPath)
         exec('phantomjs '+programPath+" "+proxy+" "+tempUrl,function(error,stdout,stderr){
             console.log(stdout)
