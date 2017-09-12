@@ -4,7 +4,7 @@ if (ENV == 'pd') {
     console.log('This platform is linux:' + (process.platform == 'linux'));
     url = "http://127.0.0.1:8000/"
 }
-
+console.log(ENV)
 let $api=(path)=>{
     try{
         return new Promise((resolve,reject)=>{

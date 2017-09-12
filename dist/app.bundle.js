@@ -20,7 +20,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "838881bcba9661b07264"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "069bba3dd9f40b8fe0e7"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -1567,7 +1567,7 @@ if (false) {
     console.log('This platform is linux:' + (process.platform == 'linux'));
     url = "http://127.0.0.1:8000/";
 }
-
+console.log("dev");
 var $api = function $api(path) {
     try {
         return new _promise2.default(function (resolve, reject) {
