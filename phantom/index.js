@@ -1,9 +1,9 @@
 import $api from '../config.js'
 import {exec} from 'child_process'
-
+import path from 'path'
+console.log(__dirname)
 var count=0
 let urlList=[
-    
     "http://ptp.chinaexpats.cn/index.php?s=tuiguang&id=5d3Khdp/pNMKvg"
 ]
 
@@ -16,7 +16,7 @@ var timeOut = time => {
 }
 var  getList=async ()=>{
     try{
-       let list=await $api('select?name=free_ipproxy&order=save_time&sort=desc&count=1000')
+       let list=await $api('select?name=free_ipproxy&order=save_time&sort=desc&count=1')
         return list
     }catch(e){}
 }
@@ -40,7 +40,9 @@ var surfing=async ()=>{
 }
 var execPhantom=async (proxy,tempUrl)=>{
     return new Promise((resolve,reject)=>{
-        exec('phantomjs ../phantom/phantom.js '+proxy+" "+tempUrl,function(error,stdout,stderr){
+        let programPath=path.join(__dirname,'phantom','phantom.js')
+        // console.log(programPath)
+        exec('phantomjs '+programPath+" "+proxy+" "+tempUrl,function(error,stdout,stderr){
             console.log(stdout)
             resolve()
             if(error) {
@@ -50,7 +52,7 @@ var execPhantom=async (proxy,tempUrl)=>{
     })
 }
 (async()=>{
-    await timeOut(30)
+    // await timeOut(30)
     console.log("start")
     surfing()
 })()
