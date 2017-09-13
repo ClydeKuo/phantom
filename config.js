@@ -1,10 +1,9 @@
 import request from 'request'
 var url="http://45.78.43.138:8000/"
-if (ENV == 'pd') {
-    console.log('This platform is linux:' + (process.platform == 'linux'));
+console.log('This platform is linux:' + (process.platform == 'linux'));
+if (ENV() == 'pd') {
     url = "http://127.0.0.1:8000/"
 }
-console.log(ENV)
 let $api=(path)=>{
     try{
         return new Promise((resolve,reject)=>{

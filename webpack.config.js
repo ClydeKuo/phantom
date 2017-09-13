@@ -4,7 +4,6 @@ const webpack = require('webpack');
 const path = require('path');
 // const db = require('./db.js');
 let externals = _externals();
-var tempEnv=process.platform == 'linux'?'"pd"':'"dev"';
 var babelpolyfill = require("babel-polyfill");
 module.exports = {
     context: path.resolve(__dirname, './app'),
@@ -47,7 +46,7 @@ module.exports = {
         // new webpack.optimize.UglifyJsPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin({ //全局常量
-            ENV: tempEnv,
+            ENV: function(){return process.platform == 'linux'?'"pd"':'"dev"'},
             PATH:"__dirname"
         }),
 

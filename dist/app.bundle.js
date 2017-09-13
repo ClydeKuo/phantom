@@ -20,7 +20,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "51f4b128ca0836472d66"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "ae82354587121f122e62"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -1379,29 +1379,30 @@ var timeOut = function timeOut(time) {
 };
 var getList = function () {
     var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
-        var list;
+        var number, list;
         return _regenerator2.default.wrap(function _callee$(_context) {
             while (1) {
                 switch (_context.prev = _context.next) {
                     case 0:
                         _context.prev = 0;
-                        _context.next = 3;
-                        return (0, _config2.default)('select?name=free_ipproxy&order=save_time&sort=desc&count=1');
+                        number = (function (){return process.platform == 'linux'?'"pd"':'"dev"'})() == "pd" ? 1000 : 5;
+                        _context.next = 4;
+                        return (0, _config2.default)('select?name=free_ipproxy&order=save_time&sort=desc&count=' + number);
 
-                    case 3:
+                    case 4:
                         list = _context.sent;
                         return _context.abrupt('return', list);
 
-                    case 7:
-                        _context.prev = 7;
+                    case 8:
+                        _context.prev = 8;
                         _context.t0 = _context['catch'](0);
 
-                    case 9:
+                    case 10:
                     case 'end':
                         return _context.stop();
                 }
             }
-        }, _callee, undefined, [[0, 7]]);
+        }, _callee, undefined, [[0, 8]]);
     }));
 
     return function getList() {
@@ -1426,55 +1427,55 @@ var surfing = function () {
 
                     case 5:
                         if (!(i < len)) {
-                            _context2.next = 20;
+                            _context2.next = 21;
                             break;
                         }
 
                         // console.log(list[i])
                         protocol = list[i].https === 'yes' ? 'https' : 'http';
                         proxy = protocol + '://' + list[i].ip + ':' + list[i].port + '/';
-                        // console.log(proxy)
 
+                        console.log(proxy);
                         j = 0, len2 = urlList.length;
 
-                    case 9:
+                    case 10:
                         if (!(j < len2)) {
-                            _context2.next = 17;
+                            _context2.next = 18;
                             break;
                         }
 
                         console.log(count++);
                         tempUrl = encodeURIComponent(urlList[j]);
-                        _context2.next = 14;
+                        _context2.next = 15;
                         return execPhantom(proxy, tempUrl);
 
-                    case 14:
+                    case 15:
                         j++;
-                        _context2.next = 9;
+                        _context2.next = 10;
                         break;
 
-                    case 17:
+                    case 18:
                         i++;
                         _context2.next = 5;
                         break;
 
-                    case 20:
-                        _context2.next = 24;
+                    case 21:
+                        _context2.next = 25;
                         break;
 
-                    case 22:
-                        _context2.prev = 22;
+                    case 23:
+                        _context2.prev = 23;
                         _context2.t0 = _context2['catch'](0);
 
-                    case 24:
+                    case 25:
                         surfing();
 
-                    case 25:
+                    case 26:
                     case 'end':
                         return _context2.stop();
                 }
             }
-        }, _callee2, undefined, [[0, 22]]);
+        }, _callee2, undefined, [[0, 23]]);
     }));
 
     return function surfing() {
@@ -1516,13 +1517,13 @@ var execPhantom = function () {
         while (1) {
             switch (_context4.prev = _context4.next) {
                 case 0:
-                    if (true) {
+                    if (!((function (){return process.platform == 'linux'?'"pd"':'"dev"'})() == 'pd')) {
                         _context4.next = 3;
                         break;
                     }
 
                     _context4.next = 3;
-                    return timeOut(30);
+                    return timeOut(10);
 
                 case 3:
                     console.log("start");
@@ -1563,11 +1564,10 @@ var _request2 = _interopRequireDefault(_request);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var url = "http://45.78.43.138:8000/";
-if (false) {
-    console.log('This platform is linux:' + (process.platform == 'linux'));
+console.log('This platform is linux:' + (process.platform == 'linux'));
+if ((function (){return process.platform == 'linux'?'"pd"':'"dev"'})() == 'pd') {
     url = "http://127.0.0.1:8000/";
 }
-console.log("dev");
 var $api = function $api(path) {
     try {
         return new _promise2.default(function (resolve, reject) {
