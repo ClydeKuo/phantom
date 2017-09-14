@@ -17,10 +17,13 @@ var timeOut = time => {
 }
 var getList = async() => {
     try {
-        let number ={"mysql":1000,"centos6":1000} [$config.env]||5
+        let number ={"mysql":1000,"centos6":1000} [$config.env]||20
         console.log("mysql number:"+number)
         console.log("order:"+$config.order)
-        let list = await $api('select?name=free_ipproxy&order=save_time&sort=desc&'+$config.order+'='+ number)
+        console.log("sort:"+$config.sort)
+        let sql=`select?name=free_ipproxy&order=${$config.order}&sort=${$config.sort}&count=${number}`
+        let list = await $api(sql)
+        console.log(sql)
         return list
     } catch (e) {}
 }
@@ -53,10 +56,15 @@ var surfing = async() => {
     // surfing()
 }
 var formatUrl=data=>{
-    let protocol = data.https === 'yes' ? 'https' : 'http'
-    let proxy = `${protocol}://${data.ip}:${data.port}/`
-    console.log('proxy：'+proxy)
-    return proxy
+    try{
+        let protocol = data.https === 'yes' ? 'https' : 'http'
+        let proxy = `${protocol}://${data.ip}:${data.port}/`
+        console.log('proxy：'+proxy)
+        return proxy
+    }catch(e){
+        console.log(e)
+    }
+    
 }
 var execPhantom = async(proxy, tempUrl) => {
     return new Promise((resolve, reject) => {

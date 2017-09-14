@@ -20,7 +20,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1cca5395f0118fb0aaba"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "307243eaa1f059f7ca57"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -1017,10 +1017,10 @@ module.exports = function (it) {
 var $config = {
     env: process.env.HOSTNAME,
     thread: Number(process.argv[2] || 5),
-    order: process.argv[3] || "save_time",
-    wait: Number(process.argv[4] || 0)
+    sort: process.argv[3] || "desc",
+    order: process.argv[4] || "save_time",
+    wait: Number(process.argv[5] || 0)
 };
-
 module.exports = $config;
 
 /***/ }),
@@ -1400,33 +1400,37 @@ var timeOut = function timeOut(time) {
 };
 var getList = function () {
     var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
-        var number, list;
+        var number, sql, list;
         return _regenerator2.default.wrap(function _callee$(_context) {
             while (1) {
                 switch (_context.prev = _context.next) {
                     case 0:
                         _context.prev = 0;
-                        number = { "mysql": 1000, "centos6": 1000 }[_config2.default.env] || 5;
+                        number = { "mysql": 1000, "centos6": 1000 }[_config2.default.env] || 20;
 
                         console.log("mysql number:" + number);
                         console.log("order:" + _config2.default.order);
-                        _context.next = 6;
-                        return (0, _api2.default)('select?name=free_ipproxy&order=save_time&sort=desc&' + _config2.default.order + '=' + number);
+                        console.log("sort:" + _config2.default.sort);
+                        sql = 'select?name=free_ipproxy&order=' + _config2.default.order + '&sort=' + _config2.default.sort + '&count=' + number;
+                        _context.next = 8;
+                        return (0, _api2.default)(sql);
 
-                    case 6:
+                    case 8:
                         list = _context.sent;
+
+                        console.log(sql);
                         return _context.abrupt('return', list);
 
-                    case 10:
-                        _context.prev = 10;
+                    case 13:
+                        _context.prev = 13;
                         _context.t0 = _context['catch'](0);
 
-                    case 12:
+                    case 15:
                     case 'end':
                         return _context.stop();
                 }
             }
-        }, _callee, undefined, [[0, 10]]);
+        }, _callee, undefined, [[0, 13]]);
     }));
 
     return function getList() {
@@ -1523,10 +1527,14 @@ var surfing = function () {
     };
 }();
 var formatUrl = function formatUrl(data) {
-    var protocol = data.https === 'yes' ? 'https' : 'http';
-    var proxy = protocol + '://' + data.ip + ':' + data.port + '/';
-    console.log('proxy：' + proxy);
-    return proxy;
+    try {
+        var protocol = data.https === 'yes' ? 'https' : 'http';
+        var proxy = protocol + '://' + data.ip + ':' + data.port + '/';
+        console.log('proxy：' + proxy);
+        return proxy;
+    } catch (e) {
+        console.log(e);
+    }
 };
 var execPhantom = function () {
     var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(proxy, tempUrl) {
