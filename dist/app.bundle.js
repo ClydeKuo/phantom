@@ -20,7 +20,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "307243eaa1f059f7ca57"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "3990c8549aafc4fd94e1"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -1017,9 +1017,7 @@ module.exports = function (it) {
 var $config = {
     env: process.env.HOSTNAME,
     thread: Number(process.argv[2] || 5),
-    sort: process.argv[3] || "desc",
-    order: process.argv[4] || "save_time",
-    wait: Number(process.argv[5] || 0)
+    wait: Number(process.argv[3] || 0)
 };
 module.exports = $config;
 
@@ -1388,8 +1386,22 @@ var _path2 = _interopRequireDefault(_path);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var count = 0;
-var urlList = ["http://ptp.chinaexpats.cn/index.php?s=tuiguang&id=5d3Khdp/pNMKvg"];
+var successTime = 0;
+var sqlTimes = -1;
+var sqlCondition = {
+    order: "save_time",
+    sort: "desc"
+};
 var target = "http://ptp.chinaexpats.cn/index.php?s=tuiguang&id=5d3Khdp/pNMKvg";
+
+var changeSql = function changeSql() {
+    console.log("-------------------");
+    var odd = sqlTimes % 2;
+    var orderTime = odd ? (sqlTimes - 1) / 2 % 9 : sqlTimes / 2 % 9;
+    console.log("orderTime:" + orderTime);
+    sqlCondition.order = ['save_time', 'ip', 'port', 'country', 'anonymity', 'https', 'speed', 'source', 'vali_count'][orderTime];
+    sqlCondition.sort = ['desc', 'asc'][odd];
+};
 
 var timeOut = function timeOut(time) {
     return new _promise2.default(function (resolve, reject) {
@@ -1408,29 +1420,31 @@ var getList = function () {
                         _context.prev = 0;
                         number = { "mysql": 1000, "centos6": 1000 }[_config2.default.env] || 20;
 
+                        console.log("sql times:" + ++sqlTimes);
+                        changeSql();
                         console.log("mysql number:" + number);
-                        console.log("order:" + _config2.default.order);
-                        console.log("sort:" + _config2.default.sort);
-                        sql = 'select?name=free_ipproxy&order=' + _config2.default.order + '&sort=' + _config2.default.sort + '&count=' + number;
-                        _context.next = 8;
-                        return (0, _api2.default)(sql);
-
-                    case 8:
-                        list = _context.sent;
+                        console.log("order:" + sqlCondition.order);
+                        console.log("sort:" + sqlCondition.sort);
+                        sql = 'select?name=free_ipproxy&order=' + sqlCondition.order + '&sort=' + sqlCondition.sort + '&count=' + number;
 
                         console.log(sql);
+                        _context.next = 11;
+                        return (0, _api2.default)(sql);
+
+                    case 11:
+                        list = _context.sent;
                         return _context.abrupt('return', list);
 
-                    case 13:
-                        _context.prev = 13;
+                    case 15:
+                        _context.prev = 15;
                         _context.t0 = _context['catch'](0);
 
-                    case 15:
+                    case 17:
                     case 'end':
                         return _context.stop();
                 }
             }
-        }, _callee, undefined, [[0, 13]]);
+        }, _callee, undefined, [[0, 15]]);
     }));
 
     return function getList() {
@@ -1460,13 +1474,6 @@ var surfing = function () {
                                 while (1) {
                                     switch (_context2.prev = _context2.next) {
                                         case 0:
-                                            /* for (let j = 0, len2 = urlList.length; j < len2; j++) {
-                                                console.log(count++)
-                                                
-                                                let tempUrl = encodeURIComponent(urlList[j])
-                                                await execPhantom(proxy, tempUrl)
-                                            } */
-
                                             proxyArr = [];
 
                                             for (k = i; k < _config2.default.thread + i; k++) {
@@ -1515,6 +1522,9 @@ var surfing = function () {
                         console.log(_context3.t1);
 
                     case 17:
+                        surfing();
+
+                    case 18:
                     case 'end':
                         return _context3.stop();
                 }
@@ -1547,6 +1557,9 @@ var execPhantom = function () {
                             // console.log(programPath)
                             (0, _child_process.exec)('phantomjs ' + programPath + " " + proxy + " " + tempUrl, function (error, stdout, stderr) {
                                 console.log(stdout);
+                                if (stdout.match(/Status: success/)) {
+                                    console.log("success times:" + ++successTime);
+                                }
                                 resolve(111);
                                 if (error) {
                                     console.info('stderr : ' + stderr);

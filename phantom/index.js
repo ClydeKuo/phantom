@@ -3,10 +3,22 @@ import $config from '../config.js'
 import {exec} from 'child_process'
 import path from 'path'
 var count = 0
-let urlList = [
-    "http://ptp.chinaexpats.cn/index.php?s=tuiguang&id=5d3Khdp/pNMKvg"
-]
+var successTime=0
+var sqlTimes=-1
+var sqlCondition={
+    order:"save_time",
+    sort:"desc"
+}
 var target="http://ptp.chinaexpats.cn/index.php?s=tuiguang&id=5d3Khdp/pNMKvg"
+
+var changeSql=()=>{
+    console.log("-------------------")
+    let odd=sqlTimes%2
+    let orderTime=odd?((sqlTimes-1)/2)%9:(sqlTimes/2)%9
+    console.log("orderTime:"+orderTime)
+    sqlCondition.order=['save_time','ip','port','country','anonymity','https','speed','source','vali_count'][orderTime]
+    sqlCondition.sort=['desc','asc'][odd]
+}
 
 var timeOut = time => {
     return new Promise((resolve, reject) => {
@@ -18,12 +30,14 @@ var timeOut = time => {
 var getList = async() => {
     try {
         let number ={"mysql":1000,"centos6":1000} [$config.env]||20
+        console.log("sql times:"+ ++sqlTimes)
+        changeSql()
         console.log("mysql number:"+number)
-        console.log("order:"+$config.order)
-        console.log("sort:"+$config.sort)
-        let sql=`select?name=free_ipproxy&order=${$config.order}&sort=${$config.sort}&count=${number}`
-        let list = await $api(sql)
+        console.log("order:"+sqlCondition.order)
+        console.log("sort:"+sqlCondition.sort)
+        let sql=`select?name=free_ipproxy&order=${sqlCondition.order}&sort=${sqlCondition.sort}&count=${number}`
         console.log(sql)
+        let list = await $api(sql)
         return list
     } catch (e) {}
 }
@@ -33,13 +47,6 @@ var surfing = async() => {
         let list = await getList()
         console.log("thread:"+$config.thread)
         for (var i = 0, len = list.length; i < len; i+=$config.thread) {
-            /* for (let j = 0, len2 = urlList.length; j < len2; j++) {
-                console.log(count++)
-                
-                let tempUrl = encodeURIComponent(urlList[j])
-                await execPhantom(proxy, tempUrl)
-            } */
-            
             let proxyArr=[]
             for(let k=i ;k<$config.thread+i;k++){
                 console.log("times:"+ ++count)
@@ -53,7 +60,7 @@ var surfing = async() => {
     } catch (e) {
         console.log(e)
     }
-    // surfing()
+    surfing()
 }
 var formatUrl=data=>{
     try{
@@ -72,6 +79,9 @@ var execPhantom = async(proxy, tempUrl) => {
         // console.log(programPath)
         exec('phantomjs ' + programPath + " " + proxy + " " + tempUrl, function (error, stdout, stderr) {
             console.log(stdout)
+            if(stdout.match(/Status: success/)){
+                console.log("success times:"+ ++successTime)
+            }
             resolve(111)
             if (error) {
                 console.info('stderr : ' + stderr);
