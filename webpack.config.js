@@ -46,7 +46,6 @@ module.exports = {
         // new webpack.optimize.UglifyJsPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin({ //全局常量
-            ENV: function(){return process.platform == 'linux'?'"pd"':'"dev"'},
             PATH:"__dirname"
         }),
 
