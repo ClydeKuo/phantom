@@ -6,18 +6,18 @@ var count = 0
 var successTime=0
 var sqlTimes=-1
 var sqlCondition={
-    order:"country",
-    sort:"asc"
+    order:"save_time",
+    sort:"desc"
 }
 var target="http://www.simplyptp.com/30240"
 
 var changeSql=()=>{
     console.log("-------------------")
-    /* let odd=sqlTimes%2
+    let odd=sqlTimes%2
     let orderTime=odd?((sqlTimes-1)/2)%9:(sqlTimes/2)%9
     console.log("orderTime:"+orderTime)
     sqlCondition.order=['save_time','ip','port','country','anonymity','https','speed','source','vali_count'][orderTime]
-    sqlCondition.sort=['desc','asc'][odd] */
+    sqlCondition.sort=['desc','asc'][odd]
 }
 
 var timeOut = time => {
@@ -54,7 +54,7 @@ var surfing = async() => {
             }
             let tempUrl = encodeURIComponent(target)
             let targetArr=proxyArr.map((item)=>execPhantom(item, tempUrl))
-            console.log(targetArr)
+            // console.log(targetArr)
             await Promise.all(targetArr)
         }
     } catch (e) {

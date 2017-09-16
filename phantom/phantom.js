@@ -18,11 +18,13 @@ page.onResourceReceived = function(response) {
     // console.log('Response (#' + response.id + '):' + JSON.stringify(response, undefined, 4));
   };
 page.open(url, function(status) {
-    console.log(url.slice(-10)+" Status: " + status);
+    var now = new Date()
+    var time=now.getHours()+":"+ now.getMinutes()+":"+now.getSeconds()
+    console.log(time+" Status: " + status);
     if(status === "success") {
         console.log("waiting")
         setTimeout(function(){
-            page.render('example.png');
+            // page.render('example.png');
             phantom.exit();
           },20000)
     }else{

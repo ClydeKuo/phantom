@@ -20,7 +20,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "8474b46cd2cb844fdabf"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "05f409b40599133f3769"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -1389,18 +1389,18 @@ var count = 0;
 var successTime = 0;
 var sqlTimes = -1;
 var sqlCondition = {
-    order: "country",
-    sort: "asc"
+    order: "save_time",
+    sort: "desc"
 };
 var target = "http://www.simplyptp.com/30240";
 
 var changeSql = function changeSql() {
     console.log("-------------------");
-    /* let odd=sqlTimes%2
-    let orderTime=odd?((sqlTimes-1)/2)%9:(sqlTimes/2)%9
-    console.log("orderTime:"+orderTime)
-    sqlCondition.order=['save_time','ip','port','country','anonymity','https','speed','source','vali_count'][orderTime]
-    sqlCondition.sort=['desc','asc'][odd] */
+    var odd = sqlTimes % 2;
+    var orderTime = odd ? (sqlTimes - 1) / 2 % 9 : sqlTimes / 2 % 9;
+    console.log("orderTime:" + orderTime);
+    sqlCondition.order = ['save_time', 'ip', 'port', 'country', 'anonymity', 'https', 'speed', 'source', 'vali_count'][orderTime];
+    sqlCondition.sort = ['desc', 'asc'][odd];
 };
 
 var timeOut = function timeOut(time) {
@@ -1484,12 +1484,12 @@ var surfing = function () {
                                             targetArr = proxyArr.map(function (item) {
                                                 return execPhantom(item, tempUrl);
                                             });
+                                            // console.log(targetArr)
 
-                                            console.log(targetArr);
-                                            _context2.next = 7;
+                                            _context2.next = 6;
                                             return _promise2.default.all(targetArr);
 
-                                        case 7:
+                                        case 6:
                                         case 'end':
                                             return _context2.stop();
                                     }
