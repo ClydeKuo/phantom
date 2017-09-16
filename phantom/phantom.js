@@ -18,14 +18,17 @@ page.onResourceReceived = function(response) {
     // console.log('Response (#' + response.id + '):' + JSON.stringify(response, undefined, 4));
   };
 page.open(url, function(status) {
+    console.log(url.slice(-10)+" Status: " + status);
     if(status === "success") {
         console.log("waiting")
         setTimeout(function(){
             page.render('example.png');
             phantom.exit();
           },20000)
-      }
-  console.log(url.slice(-10)+" Status: " + status);
+    }else{
+        phantom.exit();
+    }
+  
   
   
 });
