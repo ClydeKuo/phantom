@@ -26,7 +26,7 @@ page.open(url, function(status) {
         setTimeout(function(){
             // page.render('example.png');
             phantom.exit();
-          },20000)
+          },40000)
     }else{
         phantom.exit();
     }
