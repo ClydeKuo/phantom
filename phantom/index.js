@@ -6,18 +6,18 @@ var count = 0
 var successTime=0
 var sqlTimes=-1
 var sqlCondition={
-    order:"save_time",
-    sort:"desc"
+    order:"country",
+    sort:"asc"
 }
-var target="http://ptp.chinaexpats.cn/index.php?s=tuiguang&id=5d3Khdp/pNMKvg"
+var target="http://www.simplyptp.com/30240"
 
 var changeSql=()=>{
     console.log("-------------------")
-    let odd=sqlTimes%2
+    /* let odd=sqlTimes%2
     let orderTime=odd?((sqlTimes-1)/2)%9:(sqlTimes/2)%9
     console.log("orderTime:"+orderTime)
     sqlCondition.order=['save_time','ip','port','country','anonymity','https','speed','source','vali_count'][orderTime]
-    sqlCondition.sort=['desc','asc'][odd]
+    sqlCondition.sort=['desc','asc'][odd] */
 }
 
 var timeOut = time => {

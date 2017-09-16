@@ -1,5 +1,5 @@
 var casper = require('casper').create();
-casper.start('http://www.baidu.com/', function() {
+casper.start('http://ptp.skillerzforum.com/promote.php?id=22979', function() {
   this.echo(this.getTitle());
 });
 
