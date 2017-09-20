@@ -20,7 +20,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "05f409b40599133f3769"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b29b4fcda1926880f73d"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -1016,7 +1016,7 @@ module.exports = function (it) {
 
 var $config = {
     env: process.env.HOSTNAME,
-    thread: Number(process.argv[2] || 5),
+    thread: Number(process.argv[2] || 3),
     wait: Number(process.argv[3] || 0)
 };
 module.exports = $config;
@@ -1392,7 +1392,7 @@ var sqlCondition = {
     order: "save_time",
     sort: "desc"
 };
-var target = "http://www.simplyptp.com/30240";
+var target = "http://emprise.tk/";
 
 var changeSql = function changeSql() {
     console.log("-------------------");
