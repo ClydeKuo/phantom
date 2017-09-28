@@ -20,7 +20,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "b29b4fcda1926880f73d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "4825836e245ed63735ea"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -1392,7 +1392,7 @@ var sqlCondition = {
     order: "save_time",
     sort: "desc"
 };
-var target = "http://emprise.tk/";
+var target = "http://emprise.tk/sample-page/";
 
 var changeSql = function changeSql() {
     console.log("-------------------");

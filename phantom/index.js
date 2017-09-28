@@ -9,7 +9,7 @@ var sqlCondition={
     order:"save_time",
     sort:"desc"
 }
-var target="http://emprise.tk/"
+var target="http://emprise.tk/sample-page/"
 
 var changeSql=()=>{
     console.log("-------------------")
