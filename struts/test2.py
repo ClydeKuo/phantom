@@ -11,7 +11,7 @@ import gzip, StringIO
 import re, random, types
 from bs4 import BeautifulSoup
 
-base_url = 'https://g.jiaguge.ml/'
+base_url = 'https://www.google.com.hk/'
 results_per_page = 10
 user_agents = list()
 
